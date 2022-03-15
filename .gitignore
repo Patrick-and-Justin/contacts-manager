@@ -1,0 +1,6 @@
+gitignore files
+
+.DS_Store
+.idea
+*.iml
+keys.js
