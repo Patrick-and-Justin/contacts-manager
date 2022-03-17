@@ -31,16 +31,21 @@ public class Input {
         try {
             while (Integer.parseInt(response) > max || Integer.parseInt(response) < min) {
                 if (Integer.parseInt(response) > max) {
-                    System.out.printf(response + " is greater than the maximum input of %d\n", max);
+                    System.out.printf(response + " is greater than the maximum input of %d\n> ", max);
                     response = scanner.nextLine().trim();
                 } else if (Integer.parseInt(response) < min) {
-                    System.out.printf(response + " is less than the minimum input of %d\n", min);
+                    System.out.printf(response + " is less than the minimum input of %d\n> ", min);
                     response = scanner.nextLine().trim();
                 }
             }
         } catch (NumberFormatException e) {
-            System.out.println(response + " is not a valid input\n");
-            response = scanner.nextLine().trim();
+            if (response == null || response.isEmpty()) {
+                System.out.print("Please try again.\n> ");
+                response = scanner.nextLine().trim();
+            } else {
+                System.out.print(response + " is not between " + min + " and " + max + ".\n> ");
+                response = scanner.nextLine().trim();
+            }
         }
         return Integer.parseInt(response);
     }
@@ -111,5 +116,9 @@ public class Input {
             response = scanner.nextLine().trim();
         }
         return Integer.parseInt(response, 16);
+    }
+
+    public void clearInput() {
+        scanner.nextLine();
     }
 }

@@ -9,3 +9,8 @@
 | Joe Testantator        | +1 029-384-9584      |
 | Mister McTester        | 234-5968             |
 | Jane Doe               | +12 394-857-2988     |
+| Joe Patrick            | 910-288-8377         |
+| Yesenia Maldonado      | +720 928-937-7178    |
+| Pauly Shore            | 236-379-8273         |
+| Webster Duncan         | 528-736-4988         |
+| Harold Wayne           | 777-397-8092         |

@@ -31,16 +31,16 @@ public class ContactActions {
     //checked and works
     public static void getContactInfoFromUser() throws IOException {
         Input input = new Input();
-        System.out.println("Enter the first name of the contact\n");
+        System.out.print("\nEnter the first name of the contact\n> ");
         try {
             String firstName = input.getString();
             firstName = capitalize(firstName);
-            System.out.println("Enter the last name of the contact\n");
+            System.out.print("\nEnter the last name of the contact\n> ");
             String lastName = input.getString();
             lastName = capitalize(lastName);
             String name = firstName + " " + lastName;
             if (checkIfContactExists(name)) {
-                System.out.println("Enter the phone number of the contact: (enter numbers only)\n");
+                System.out.print("\nEnter the phone number of the contact: (enter numbers only)\n> ");
                 try {
                     String phoneNumber = input.getString();
                     phoneNumber = phoneNumber.replaceAll("\\D+","");
@@ -48,12 +48,14 @@ public class ContactActions {
                     addContact(contact);
                 } catch (IllegalArgumentException p) {
                     System.out.println(p.getMessage());
-                    getContactInfoFromUser();
+//                    input.clearInput();
+//                    getContactInfoFromUser();
                 }
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            getContactInfoFromUser();
+//            input.clearInput();
+//            getContactInfoFromUser();
         }
     }
     //checked and works
@@ -64,9 +66,9 @@ public class ContactActions {
             Path filepath = Paths.get(directory, filename);
             List<String> displayContacts = Files.readAllLines(filepath);
             Input input = new Input();
-            System.out.println("1. View contacts by first name.\n" +
+            System.out.print("\n1. View contacts by first name.\n" +
                     "2. Display contacts by last name.\n" +
-                    "Enter an option number (ex: 1, 2...):\n");
+                    "Enter an option number:\n> ");
             int choice = input.getInt(1,2);
             if(choice == 1){
                 displayNames(displayContacts);
@@ -86,7 +88,7 @@ public class ContactActions {
             Path filepath = Paths.get(directory, filename);
             List<String> contactsList = Files.readAllLines(filepath);
             Input input = new Input();
-            System.out.println("Enter the name of the contact you want to delete");
+            System.out.print("\nEnter the name of the contact you want to delete\n> ");
             String name = input.getString();
             List<String> newList = new ArrayList<>();
             for (String contact : contactsList) {
@@ -112,7 +114,7 @@ public class ContactActions {
             Path filepath = Paths.get(directory, filename);
             List<String> contactsList = Files.readAllLines(filepath);
             Input input = new Input();
-            System.out.println("Search for a contact:");
+            System.out.print("\nSearch for a contact:\n> ");
             String name = input.getString();
             boolean finishedForLoop = true;
             for (String contact : contactsList) {
@@ -138,20 +140,20 @@ public class ContactActions {
         Path filepath = Paths.get(directory, filename);
         List<String> contactsList = Files.readAllLines(filepath);
         Input input = new Input();
-        System.out.println("Enter the name of the contact:");
+        System.out.print("\nEnter the name of the contact:\n> ");
         String name = input.getString();
         List<String> newList = new ArrayList<>();
         boolean finishedForLoop = true;
         for (String contact : contactsList) {
             if (contact.toLowerCase().contains(name.toLowerCase())) {
                 finishedForLoop = false;
-                System.out.println("Enter the correct first name of the contact\n");
+                System.out.print("\nEnter the correct first name of the contact\n> ");
                 try {
                     String firstName = input.getString();
-                    System.out.println("Enter the correct last name of the contact\n");
+                    System.out.print("\nEnter the correct last name of the contact\n> ");
                     String lastName = input.getString();
                     name = firstName + " " + lastName;
-                    System.out.println("Enter the correct phone number of the contact: (enter numbers only)\n");
+                    System.out.print("\nEnter the correct phone number of the contact: (enter numbers only)\n> ");
                     try {
                         String phoneNumber = input.getString();
                         phoneNumber = phoneNumber.replaceAll("\\D+","");
@@ -179,13 +181,13 @@ public class ContactActions {
     public static int contactMenu(){
         Input input = new Input();
         System.out.println("Welcome to your contacts manager\n");
-        System.out.println("1. View contacts.\n" +
+        System.out.print("\n1. View contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact by name.\n" +
                 "4. Delete an existing contact.\n" +
                 "5. Edit an existing contact.\n" +
                 "6. Exit.\n" +
-                "Enter an option number (ex: 1, 2...):\n");
+                "Enter an option number (ex: 1, 2...):\n> ");
         return input.getInt(1,6);
     }
 
@@ -241,7 +243,7 @@ public class ContactActions {
              System.out.println(String.format("%-3s", i + 1)  + displayContacts.get(i));
          }
          Input input = new Input();
-         if(input.yesNo("You you like to sort contacts in reverse alphabetical order?\n")){
+         if(input.yesNo("\nWould you like to sort contacts in reverse alphabetical order?\n> ")){
              Collections.reverse(displayContacts);
              System.out.println("   | Name                   | Phone number         |\n" +
                      "----------------------------------------------------");
