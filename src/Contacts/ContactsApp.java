@@ -12,7 +12,7 @@ public class ContactsApp {
         int answer = contactMenu();
         while (answer != 6) {
             if (answer == 1) {
-                displayAllContacts();
+                displayContactsMenu();
                 if (input.yesNo("Would you like to do anything else? Y/N\n")) {
                     answer = contactMenu();
                 } else {

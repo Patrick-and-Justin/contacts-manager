@@ -57,17 +57,21 @@ public class ContactActions {
         }
     }
     //checked and works
-    public static void displayAllContacts() {
+    public static void displayContactsMenu() {
         try {
             String directory = "src/Contacts/documents/";
             String filename = "contacts.txt";
             Path filepath = Paths.get(directory, filename);
             List<String> displayContacts = Files.readAllLines(filepath);
-            Collections.sort(displayContacts);
-            System.out.println("   | Name                   | Phone number         |\n" +
-                    "----------------------------------------------------");
-            for (int i = 0; i < displayContacts.size(); i += 1) {
-                System.out.println(String.format("%-3s", i + 1)  + displayContacts.get(i));
+            Input input = new Input();
+            System.out.println("1. View contacts by first name.\n" +
+                    "2. Display contacts by last name.\n" +
+                    "Enter an option number (ex: 1, 2...):\n");
+            int choice = input.getInt(1,2);
+            if(choice == 1){
+                displayNames(displayContacts);
+            } else if (choice == 2) {
+                lastNameFirst(displayContacts);
             }
         } catch  (IOException ex) {
             System.out.println(ex.getMessage());
@@ -115,7 +119,6 @@ public class ContactActions {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
                     finishedForLoop = false;
                     System.out.println(contact);
-//                    break;
                 }
             }
             if(finishedForLoop) {
@@ -175,7 +178,7 @@ public class ContactActions {
 
     public static int contactMenu(){
         Input input = new Input();
-        System.out.println("Welcome to your contacts.txt manager\n");
+        System.out.println("Welcome to your contacts manager\n");
         System.out.println("1. View contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact by name.\n" +
@@ -215,4 +218,40 @@ public class ContactActions {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
-}
+    public static void lastNameFirst(List<String> displayContacts){
+        List<String> revisedContacts = new ArrayList<>();
+        for (String displayContact : displayContacts) {
+            String[] splitStr = displayContact.split("\\|+");
+            String[] secondSplit = splitStr[1].split("\\s+");
+            String firstName = secondSplit[1];
+            String lastName = secondSplit[secondSplit.length - 1];
+            String name = lastName + ", " + firstName;
+            name = String.format("%-22.22s", name);
+            String lastNameFirst = "| " + name + " |" + splitStr[2] + "|";
+            revisedContacts.add(lastNameFirst);
+            }
+            displayNames(revisedContacts);
+        }
+
+     public static void displayNames(List<String> displayContacts){
+         Collections.sort(displayContacts);
+         System.out.println("   | Name                   | Phone number         |\n" +
+                 "----------------------------------------------------");
+         for (int i = 0; i < displayContacts.size(); i += 1) {
+             System.out.println(String.format("%-3s", i + 1)  + displayContacts.get(i));
+         }
+         Input input = new Input();
+         if(input.yesNo("You you like to sort contacts in reverse alphabetical order?\n")){
+             Collections.reverse(displayContacts);
+             System.out.println("   | Name                   | Phone number         |\n" +
+                     "----------------------------------------------------");
+             for (int i = 0; i < displayContacts.size(); i += 1) {
+                 System.out.println(String.format("%-3s", i + 1)  + displayContacts.get(i));
+             }
+         }
+     }
+
+
+
+
+    }
