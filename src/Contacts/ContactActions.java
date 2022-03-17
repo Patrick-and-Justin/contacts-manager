@@ -34,7 +34,7 @@ public class ContactActions {
     }
 
     //checked and works
-    public static void getContactInfoFromUser() throws IOException {
+    public static void getContactInfoFromUser() throws IOException, InterruptedException {
         Input input = new Input();
         System.out.print("\nEnter the first name of the contact\n> ");
         try {
@@ -56,7 +56,7 @@ public class ContactActions {
                     contactNavigator();
                 }
             }
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | InterruptedException e) {
             System.out.println(e.getMessage());
             contactNavigator();
         }
@@ -200,9 +200,10 @@ public class ContactActions {
                 "3. Search a contact by name.\n" +
                 "4. Delete an existing contact.\n" +
                 "5. Edit an existing contact.\n" +
-                "6. Exit.\n" +
+                "6. Make a call.\n" +
+                "7. Exit.\n" +
                 "Enter an option number (ex: 1, 2...):\n> ");
-        return input.getInt(1, 6);
+        return input.getInt(1, 7);
     }
 
     public static boolean checkIfContactExists(String name) {
@@ -224,7 +225,7 @@ public class ContactActions {
         return true;
     }
 
-    public static String capitalize(String str) throws IOException {
+    public static String capitalize(String str) throws IOException, InterruptedException {
         if (str == null || str.isEmpty()) {
             System.out.println("Name input required");
             getContactInfoFromUser();
