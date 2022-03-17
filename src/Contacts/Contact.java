@@ -43,19 +43,19 @@ public class Contact {
         } else if (phoneNumber.length() == 10) {
             this.phoneNumber = phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3");
         } else if (phoneNumber.length() == 11) {
-            this.phoneNumber = phoneNumber.replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d+)", "+$1 $2-$3-$4");
+            this.phoneNumber = phoneNumber.replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3-$4");
         } else if (phoneNumber.length() == 12) {
-            this.phoneNumber = phoneNumber.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d+)", "+$1 $2-$3-$4");
+            this.phoneNumber = phoneNumber.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3-$4");
         } else if (phoneNumber.length() == 13) {
-            this.phoneNumber = phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d+)", "+$1 $2-$3-$4");
+            this.phoneNumber = phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3-$4");
         } else if (phoneNumber.length() == 14) {
-            this.phoneNumber = phoneNumber.replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d{3})(\\d+)", "+$1-$2 $3-$4-$5");
+            this.phoneNumber = phoneNumber.replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3-$4-$5");
         } else if (phoneNumber.length() == 15) {
-            this.phoneNumber = phoneNumber.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d{3})(\\d+)", "+$1-$2 $3-$4-$5");
+            this.phoneNumber = phoneNumber.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3-$4-$5");
         } else if (phoneNumber.length() == 16) {
-            this.phoneNumber = phoneNumber.replaceFirst("(\\d{2})(\\d{4})(\\d{3})(\\d{3})(\\d+)", "+$1-$2 $3-$4-$5");
+            this.phoneNumber = phoneNumber.replaceFirst("(\\d{2})(\\d{4})(\\d{3})(\\d{3})(\\d+)", "$1-$2-$3-$4-$5");
         } else {
-            throw new IllegalArgumentException("Contact cannot be created because phone is too long.");
+            throw new IllegalArgumentException("Contact cannot be created because the entry is invalid.");
         }
         this.name = name;
     }

@@ -39,14 +39,9 @@ public class Input {
                 }
             }
         } catch (NumberFormatException e) {
-            if (response == null || response.isEmpty()) {
-                System.out.print("Please try again.\n> ");
-                response = scanner.nextLine().trim();
-            } else {
                 System.out.print(response + " is not between " + min + " and " + max + ".\n> ");
                 response = scanner.nextLine().trim();
             }
-        }
         return Integer.parseInt(response);
     }
 

@@ -8,6 +8,9 @@ import static Contacts.ContactActions.*;
 
 public class ContactsApp {
     public static void main(String[] args) throws IOException {
+        contactNavigator();
+    }
+    public static void contactNavigator() throws IOException {
         Input input = new Input();
         int answer = contactMenu();
         while (answer != 6) {
@@ -48,7 +51,7 @@ public class ContactsApp {
                 }
             }
         }
-
-
     }
+
+
 }

@@ -1,7 +1,9 @@
 package Contacts;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,11 +12,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static Contacts.ContactsApp.contactNavigator;
+
 
 public class ContactActions {
 
     //checked and works
-    public static void addContact(Contact contact)  {
+    public static void addContact(Contact contact) {
         try {
             String directory = "src/Contacts/documents/";
             String filename = "contacts.txt";
@@ -28,6 +32,7 @@ public class ContactActions {
         }
 
     }
+
     //checked and works
     public static void getContactInfoFromUser() throws IOException {
         Input input = new Input();
@@ -43,21 +48,20 @@ public class ContactActions {
                 System.out.print("\nEnter the phone number of the contact: (enter numbers only)\n> ");
                 try {
                     String phoneNumber = input.getString();
-                    phoneNumber = phoneNumber.replaceAll("\\D+","");
+                    phoneNumber = phoneNumber.replaceAll("\\D+", "");
                     Contact contact = new Contact(name, phoneNumber);
                     addContact(contact);
                 } catch (IllegalArgumentException p) {
                     System.out.println(p.getMessage());
-//                    input.clearInput();
-//                    getContactInfoFromUser();
+                    contactNavigator();
                 }
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-//            input.clearInput();
-//            getContactInfoFromUser();
+            contactNavigator();
         }
     }
+
     //checked and works
     public static void displayContactsMenu() {
         try {
@@ -69,17 +73,18 @@ public class ContactActions {
             System.out.print("\n1. View contacts by first name.\n" +
                     "2. Display contacts by last name.\n" +
                     "Enter an option number:\n> ");
-            int choice = input.getInt(1,2);
-            if(choice == 1){
+            int choice = input.getInt(1, 2);
+            if (choice == 1) {
                 displayNames(displayContacts);
             } else if (choice == 2) {
                 lastNameFirst(displayContacts);
             }
-        } catch  (IOException ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Error displaying contacts.txt");
         }
     }
+
     //checked and works
     public static void deleteContact() {
         try {
@@ -106,6 +111,7 @@ public class ContactActions {
             System.out.println("Error deleting contact");
         }
     }
+
     //checked and works
     public static void searchContacts() {
         try {
@@ -121,15 +127,23 @@ public class ContactActions {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
                     finishedForLoop = false;
                     System.out.println(contact);
+                    if(input.yesNo("Would you like to call this contact?")){
+                        String[] splitStr = contact.split("\\|+");
+                        String phoneNumber = splitStr[2].trim();
+                        callContact(phoneNumber);
+                    }
                 }
             }
-            if(finishedForLoop) {
+            if (finishedForLoop) {
                 System.out.println("Contact not found");
             }
-        }
-        catch (IOException ex) {
+
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Error finding contact");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("Invalid Phone Number");
         }
 
     }
@@ -156,7 +170,7 @@ public class ContactActions {
                     System.out.print("\nEnter the correct phone number of the contact: (enter numbers only)\n> ");
                     try {
                         String phoneNumber = input.getString();
-                        phoneNumber = phoneNumber.replaceAll("\\D+","");
+                        phoneNumber = phoneNumber.replaceAll("\\D+", "");
                         Contact correctedContact = new Contact(name, phoneNumber);
                         newList.add(String.valueOf(correctedContact));
                         continue;
@@ -172,13 +186,13 @@ public class ContactActions {
             newList.add(contact);
         }
         Files.write(Paths.get(directory, filename), newList);
-        if(finishedForLoop) {
+        if (finishedForLoop) {
             System.out.println("Contact not found");
         }
     }
 
 
-    public static int contactMenu(){
+    public static int contactMenu() {
         Input input = new Input();
         System.out.println("Welcome to your contacts manager\n");
         System.out.print("\n1. View contacts.\n" +
@@ -188,10 +202,10 @@ public class ContactActions {
                 "5. Edit an existing contact.\n" +
                 "6. Exit.\n" +
                 "Enter an option number (ex: 1, 2...):\n> ");
-        return input.getInt(1,6);
+        return input.getInt(1, 6);
     }
 
-    public static boolean checkIfContactExists(String name){
+    public static boolean checkIfContactExists(String name) {
         try {
             String directory = "src/Contacts/documents/";
             String filename = "contacts.txt";
@@ -203,8 +217,7 @@ public class ContactActions {
                     return false;
                 }
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Error finding contact");
         }
@@ -212,7 +225,7 @@ public class ContactActions {
     }
 
     public static String capitalize(String str) throws IOException {
-        if(str == null || str.isEmpty()) {
+        if (str == null || str.isEmpty()) {
             System.out.println("Name input required");
             getContactInfoFromUser();
         }
@@ -220,7 +233,7 @@ public class ContactActions {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
-    public static void lastNameFirst(List<String> displayContacts){
+    public static void lastNameFirst(List<String> displayContacts) {
         List<String> revisedContacts = new ArrayList<>();
         for (String displayContact : displayContacts) {
             String[] splitStr = displayContact.split("\\|+");
@@ -231,29 +244,38 @@ public class ContactActions {
             name = String.format("%-22.22s", name);
             String lastNameFirst = "| " + name + " |" + splitStr[2] + "|";
             revisedContacts.add(lastNameFirst);
+        }
+        displayNames(revisedContacts);
+    }
+
+    public static void displayNames(List<String> displayContacts) {
+        Collections.sort(displayContacts);
+        System.out.println("   | Name                   | Phone number         |\n" +
+                "----------------------------------------------------");
+        for (int i = 0; i < displayContacts.size(); i += 1) {
+            System.out.println(String.format("%-3s", i + 1) + displayContacts.get(i));
+        }
+        Input input = new Input();
+        if (input.yesNo("\nWould you like to sort contacts in reverse alphabetical order?\n> ")) {
+            Collections.reverse(displayContacts);
+            System.out.println("   | Name                   | Phone number         |\n" +
+                    "----------------------------------------------------");
+            for (int i = 0; i < displayContacts.size(); i += 1) {
+                System.out.println(String.format("%-3s", i + 1) + displayContacts.get(i));
             }
-            displayNames(revisedContacts);
+        }
+    }
+
+    public static void callContact(String phoneNumber) throws IOException, InterruptedException {
+        String cmd = "open facetime://" + phoneNumber;
+        Runtime run = Runtime.getRuntime();
+        Process pr = run.exec(cmd);
+        pr.waitFor();
+        BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+        String line = "";
+        while ((line = buf.readLine()) != null) {
+            System.out.println(line);
         }
 
-     public static void displayNames(List<String> displayContacts){
-         Collections.sort(displayContacts);
-         System.out.println("   | Name                   | Phone number         |\n" +
-                 "----------------------------------------------------");
-         for (int i = 0; i < displayContacts.size(); i += 1) {
-             System.out.println(String.format("%-3s", i + 1)  + displayContacts.get(i));
-         }
-         Input input = new Input();
-         if(input.yesNo("\nWould you like to sort contacts in reverse alphabetical order?\n> ")){
-             Collections.reverse(displayContacts);
-             System.out.println("   | Name                   | Phone number         |\n" +
-                     "----------------------------------------------------");
-             for (int i = 0; i < displayContacts.size(); i += 1) {
-                 System.out.println(String.format("%-3s", i + 1)  + displayContacts.get(i));
-             }
-         }
-     }
-
-
-
-
     }
+}
