@@ -1,8 +1,36 @@
-package contactsManager;
+package Contacts;
+
+import java.util.Objects;
 
 public class Contact {
     private String name;
+
+    @Override
+    public String toString() {
+        return "| " + String.format("%-22.22s", name) +
+                " | " + String.format("%-21.21s",phoneNumber) + "|";
+    }
+
     private String phoneNumber;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
 
     public Contact(String name, String phoneNumber) {
         if (name.length() < 4) {
@@ -32,27 +60,17 @@ public class Contact {
         this.name = name;
     }
 
+
     @Override
-    public String toString() {
-        return this.getName() + "\n" + this.getPhoneNumber();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Contact)) return false;
+        Contact contact = (Contact) o;
+        return Objects.equals(phoneNumber, contact.phoneNumber) && name.equals(contact.name);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, phoneNumber);
     }
 }
-
-
-
