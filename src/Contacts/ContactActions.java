@@ -127,7 +127,7 @@ public class ContactActions {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
                     finishedForLoop = false;
                     System.out.println(contact);
-                    if(input.yesNo("Would you like to call this contact?")){
+                    if(input.yesNo("\nWould you like to call this contact?\n> ")){
                         String[] splitStr = contact.split("\\|+");
                         String phoneNumber = splitStr[2].trim();
                         callContact(phoneNumber);
