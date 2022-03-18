@@ -21,14 +21,14 @@ public class ContactsApp {
                 if (input.yesNo("\nWould you like to do anything else? Y/N\n> ")) {
                     answer = contactMenu();
                 } else {
-                    answer = 8;
+                    answer = 7;
                 }
             } else if (answer == 2) {
                 getContactInfoFromUser();
                 if (input.yesNo("\nWould you like to do anything else? Y/N\n> ")) {
                     answer = contactMenu();
                 } else {
-                    answer = 8;
+                    answer = 7;
                 }
             } else if (answer == 3) {
                 searchContacts();
