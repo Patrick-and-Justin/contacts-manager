@@ -92,20 +92,15 @@ public class ContactActions {
     }
 
     //checked and works
-    public static void deleteContact() throws IOException, URISyntaxException, InterruptedException {
+    public static void deleteContact(String searchedContact) throws IOException, URISyntaxException, InterruptedException {
         try {
             String directory = "src/Contacts/documents/";
             String filename = "contacts.txt";
             Path filepath = Paths.get(directory, filename);
             List<String> contactsList = Files.readAllLines(filepath);
-            Input input = new Input();
-            System.out.print("\nSearch for name of the contact you want to delete\n> ");
-            String name = input.getString();
             List<String> newList = new ArrayList<>();
             for (String contact : contactsList) {
-                String[] splitStr = contact.split("\\|+");
-                String nameFromList = splitStr[1];
-                if (nameFromList.toLowerCase().contains(name.toLowerCase())) {
+                if (searchedContact.equalsIgnoreCase(contact)) {
                     System.out.println(contact);
                     newList.remove(contact);
                     System.out.println("Contact deleted");
@@ -130,8 +125,11 @@ public class ContactActions {
             Path filepath = Paths.get(directory, filename);
             List<String> contactsList = Files.readAllLines(filepath);
             Input input = new Input();
-            System.out.print("\nSearch for a contact:\n> ");
-            String name = input.getString();
+            System.out.print("\nEnter the first name of the contact\n> ");
+            String firstName = input.getString();
+            System.out.print("\nEnter the last name of the contact\n> ");
+            String lastName = input.getString();
+            String name = firstName + " " + lastName;
             boolean finishedForLoop = false;
             for (String contact : contactsList) {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
@@ -140,11 +138,7 @@ public class ContactActions {
                     String[] splitStr = contact.split("\\|+");
                     String phoneNumber = splitStr[2].trim();
                     String email = splitStr[3].trim();
-                    if (input.yesNo("\nWould you like connect with this person?\n> ")) {
-                        connectWithContact(phoneNumber, email);
-                    } else {
-                        contactNavigator();
-                        }
+                    connectWithContact(phoneNumber, email, contact);
                     }
             }
             if (!finishedForLoop) {
@@ -156,25 +150,23 @@ public class ContactActions {
         }
     }
 
-        public static void editContact () throws IOException {
+        public static void editContact(String searchedContact) throws IOException {
             String directory = "src/Contacts/documents/";
             String filename = "contacts.txt";
             Path filepath = Paths.get(directory, filename);
-            List<String> contactsList = Files.readAllLines(filepath);
             Input input = new Input();
-            System.out.print("\nSearch for name of the contact to edit:\n> ");
-            String name = input.getString();
+            List<String> contactsList = Files.readAllLines(filepath);
             List<String> newList = new ArrayList<>();
             boolean finishedForLoop = true;
             for (String contact : contactsList) {
-                if (contact.toLowerCase().contains(name.toLowerCase())) {
+                if (searchedContact.equalsIgnoreCase(contact)) {
                     finishedForLoop = false;
                     System.out.print("\nEnter the correct first name of the contact\n> ");
                     try {
                         String firstName = input.getString();
                         System.out.print("\nEnter the correct last name of the contact\n> ");
                         String lastName = input.getString();
-                        name = firstName + " " + lastName;
+                        String name = firstName + " " + lastName;
                         System.out.print("\nEnter the correct phone number of the contact: (enter numbers only)\n> ");
                         try {
                             String phoneNumber = input.getString();
@@ -186,11 +178,11 @@ public class ContactActions {
                             continue;
                         } catch (IllegalArgumentException p) {
                             System.out.println(p.getMessage());
-                            editContact();
+                            editContact(contact);
                         }
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
-                        editContact();
+                        editContact(contact);
                     }
                 }
                 newList.add(contact);
@@ -201,21 +193,18 @@ public class ContactActions {
             }
         }
 
-
         public static int contactMenu () {
             Input input = new Input();
             System.out.println("Welcome to your contacts manager\n");
             System.out.print("\n1. View contacts.\n" +
                     "2. Add a new contact.\n" +
                     "3. Search a contact by name.\n" +
-                    "4. Delete an existing contact.\n" +
-                    "5. Edit an existing contact.\n" +
-                    "6. Make a call.\n" +
-                    "7. Send a text message.\n" +
-                    "8. Send an email.\n" +
-                    "9. Exit.\n" +
+                    "4. Make a call.\n" +
+                    "5. Send a text message.\n" +
+                    "6. Send an email.\n" +
+                    "7. Exit.\n" +
                     "Enter an option number (ex: 1, 2...):\n> ");
-            return input.getInt(1, 9);
+            return input.getInt(1, 7);
         }
 
         public static boolean checkIfContactExists (String name) throws IOException, URISyntaxException, InterruptedException {
@@ -256,7 +245,7 @@ public class ContactActions {
                 String lastName = secondSplit[secondSplit.length - 1];
                 String name = lastName + ", " + firstName;
                 name = String.format("%-22.22s", name);
-                String lastNameFirst = "| " + name + " |" + splitStr[2] + "| " + splitStr[3] + "|";
+                String lastNameFirst = "| " + name + " |" + splitStr[2] + "|" + splitStr[3] + "|";
                 revisedContacts.add(lastNameFirst);
             }
             displayNames(revisedContacts);
@@ -311,21 +300,27 @@ public class ContactActions {
                 throw new RuntimeException("desktop doesn't support mailto");
             }
         }
-        public static void connectWithContact(String phoneNumber, String email) throws IOException, InterruptedException, URISyntaxException {
+        public static void connectWithContact(String phoneNumber, String email, String contact) throws IOException, InterruptedException, URISyntaxException {
             Input input = new Input();
             System.out.print("\n1. Call Contact.\n" +
                     "2. Send a text message.\n" +
                     "3. Email Contact.\n" +
-                    "4. Exit menu.\n" +
+                    "4. Delete Contact.\n" +
+                    "5. Edit Contact.\n" +
+                    "6. Exit menu.\n" +
                     "Enter an option number:\n> ");
-            int answer = input.getInt(1, 4);
+            int answer = input.getInt(1, 6);
             if (answer == 1 ) {
                 callContact(phoneNumber);
             } else if (answer ==2) {
                 messageContact(phoneNumber);
             } else if (answer == 3) {
                 sendEmail(email);
-                } else {
+            } else if (answer == 4) {
+                deleteContact(contact);
+            } else if (answer == 5) {
+                editContact(contact);
+            } else {
                 contactNavigator();
                 }
             }
