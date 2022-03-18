@@ -4,15 +4,24 @@ import java.util.Objects;
 
 public class Contact {
     private String name;
+    private String phoneNumber;
+    private String email;
 
     @Override
     public String toString() {
         return "| " + String.format("%-22.22s", name) +
-                " | " + String.format("%-21.21s",phoneNumber) + "|";
+                " | " + String.format("%-21.21s", phoneNumber) + "| " + String.format("%-30.30s", email) + "|";
+
     }
 
-    private String phoneNumber;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getName() {
         return name;
@@ -31,10 +40,12 @@ public class Contact {
     }
 
 
-
-    public Contact(String name, String phoneNumber) {
+    public Contact(String name, String phoneNumber, String email) {
         if (name.length() < 4) {
             throw new IllegalArgumentException("Contact cannot be created because name is too short.");
+        }
+        if (email.length() < 10) {
+            throw new IllegalArgumentException("Contact cannot be created because email is too short.");
         }
         if (phoneNumber.length() < 7) {
             throw new IllegalArgumentException("Contact cannot be created because phone number is too short.");
@@ -58,19 +69,7 @@ public class Contact {
             throw new IllegalArgumentException("Contact cannot be created because the entry is invalid.");
         }
         this.name = name;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Contact)) return false;
-        Contact contact = (Contact) o;
-        return Objects.equals(phoneNumber, contact.phoneNumber) && name.equals(contact.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, phoneNumber);
+        this.email = email;
     }
 }
+

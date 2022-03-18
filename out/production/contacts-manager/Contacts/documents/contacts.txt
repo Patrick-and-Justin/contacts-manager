@@ -1,18 +1,18 @@
-| Jo Schmo               | 210-293-2322         |
-| Patrick Quilty         | 908-906-6710         |
-| Anna Molly             | 210-343-2494         |
-| John Doe               | 345-6577             |
-| Jenn Someone           | 210-230-1421         |
-| New Girl               | 210-232-3355         |
-| Patrick Smith          | 234-8584             |
-| Another One            | 1-732-849-5847       |
-| Joe Testantator        | 1-029-384-9584       |
-| Mister McTester        | 234-5968             |
-| Jane Doe               | 12-394-857-2988      |
-| Joe Patrick            | 910-288-8377         |
-| Yesenia Maldonado      | 720-928-937-7178     |
-| Pauly Shore            | 236-379-8273         |
-| Justin Sixsmith        | 360-241-2953         |
-| Webster Duncan         | 528-736-4988         |
-| DocRob                 | 210-843-0130         |
-| Harold Wayne           | 777-397-8092         |
+| Jo Schmo               | 210-293-2322         | you@me.com                    |
+| Patrick Quilty         | 908-906-6710         | patrick.quilty21@gmail.com    |
+| Anna Molly             | 210-343-2494         | you@me.com                    |
+| John Doe               | 345-6577             | you@me.com                    |
+| Jenn Someone           | 210-230-1421         | you@me.com                    |
+| New Girl               | 210-232-3355         | you@me.com                    |
+| Patrick Smith          | 234-8584             | you@me.com                    |
+| Another One            | 1-732-849-5847       | you@me.com                    |
+| Joe Testantator        | 1-029-384-9584       | you@me.com                    |
+| Mister McTester        | 234-5968             | you@me.com                    |
+| Jane Doe               | 12-394-857-2988      | you@me.com                    |
+| Joe Patrick            | 910-288-8377         | you@me.com                    |
+| Yesenia Maldonado      | 720-928-937-7178     | you@me.com                    |
+| Pauly Shore            | 236-379-8273         | you@me.com                    |
+| Justin Sixsmith        | 360-241-2953         | you@me.com                    |
+| Webster Duncan         | 528-736-4988         | you@me.com                    |
+| DocRob                 | 210-843-0130         | you@me.com                    |
+| Harold Wayne           | 777-397-8092         | you@me.com                    |

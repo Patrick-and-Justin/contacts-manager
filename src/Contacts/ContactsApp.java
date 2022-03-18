@@ -3,17 +3,19 @@ package Contacts;
 
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static Contacts.ContactActions.*;
 
 
 public class ContactsApp {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
         contactNavigator();
     }
-    public static void contactNavigator() throws IOException, InterruptedException {
+    public static void contactNavigator() throws IOException, InterruptedException, URISyntaxException {
         Input input = new Input();
         int answer = contactMenu();
-        while (answer != 8) {
+        while (answer != 9) {
             if (answer == 1) {
                 displayContactsMenu();
                 if (input.yesNo("\nWould you like to do anything else? Y/N\n> ")) {
@@ -59,6 +61,12 @@ public class ContactsApp {
                 System.out.print("\nEnter the phone number to text message.\n> ");
                 String userNumber = input.getString();
                 messageContact(userNumber);
+                answer = contactMenu();
+            }
+            else if (answer == 8) {
+                System.out.print("\nEnter the email address you want to mail.\n> ");
+                String email = input.getString();
+                sendEmail(email);
                 answer = contactMenu();
             }
         }
