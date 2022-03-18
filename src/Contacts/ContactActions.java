@@ -175,7 +175,7 @@ public class ContactActions {
                         Ascii.lolaCastillo();
                     }
                     else if (name.equalsIgnoreCase("micah wood")) {
-                        Ascii.lolaCastillo();
+                        Ascii.micahWood();
                     }
                     else if (name.equalsIgnoreCase("rachel verastique")) {
                         Ascii.rachelVerastique();

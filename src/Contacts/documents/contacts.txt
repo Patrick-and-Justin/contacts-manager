@@ -3,4 +3,7 @@
 | John Buck              | 210-838-4799         | john.buck@gmail.com           |
 | John Tester            | 210-986-3574         | john.tester@yahoo.com         |
 | Ivana Testalot         | 1-908-746-5789       | ivana.testalot@hotmail.com    |
-| Doc Rob                | 210-843-1234         | docrob@gmail.com              |
+| Doc Rob                | 210-832-0382         | docrob@gmail.com              |
+| Ry Sutton              | 210-283-9477         | rysutton@gmail.com            |
+| Elijah Wood            | 210-298-3089         | slkjsfklj@gmail.com           |
+| Micah Wood             | 210-384-7290         | micahwood@gmail.com           |
