@@ -1,9 +1,12 @@
 package Contacts;
 
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -129,10 +132,10 @@ public class ContactActions {
                     System.out.println(contact);
                     String[] splitStr = contact.split("\\|+");
                     String phoneNumber = splitStr[2].trim();
-                    if(input.yesNo("\nWould you like to call this contact?\n> ")){
+                    if (input.yesNo("\nWould you like to call this contact?\n> ")) {
                         callContact(phoneNumber);
                     }
-                    if(input.yesNo("\nWould you text message to call this contact?\n> ")){
+                    if (input.yesNo("\nWould you text message to call this contact?\n> ")) {
                         messageContact(phoneNumber);
                     }
                 }
@@ -275,10 +278,11 @@ public class ContactActions {
         String cmd = "open facetime://" + phoneNumber;
         macInterface(cmd);
     }
+
     public static void messageContact(String phoneNumber) throws IOException, InterruptedException {
         String cmd = "open imessage://" + phoneNumber;
         macInterface(cmd);
-        }
+    }
 
     public static void macInterface(String cmd) throws InterruptedException, IOException {
         Runtime run = Runtime.getRuntime();
@@ -291,4 +295,18 @@ public class ContactActions {
         }
     }
 
+    public static void sendEmail() throws URISyntaxException, IOException {
+        Input input = new Input();
+        System.out.println("Enter the mail address");
+        String emailAddress = input.getString();
+        Desktop desktop;
+        if (Desktop.isDesktopSupported()
+                && (desktop = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
+            URI mailto = new URI("mailto:" + emailAddress + "?subject=Look%20What%20This%20App%20Can%20Do");
+            desktop.mail(mailto);
+        } else {
+            throw new RuntimeException("desktop doesn't support mailto");
+        }
+
+    }
 }
