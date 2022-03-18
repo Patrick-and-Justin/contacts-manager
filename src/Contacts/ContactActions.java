@@ -99,11 +99,14 @@ public class ContactActions {
             Path filepath = Paths.get(directory, filename);
             List<String> contactsList = Files.readAllLines(filepath);
             Input input = new Input();
-            System.out.print("\nEnter the name of the contact you want to delete\n> ");
+            System.out.print("\nSearch for name of the contact you want to delete\n> ");
             String name = input.getString();
             List<String> newList = new ArrayList<>();
             for (String contact : contactsList) {
-                if (contact.toLowerCase().contains(name.toLowerCase())) {
+                String[] splitStr = contact.split("\\|+");
+                String nameFromList = splitStr[1];
+                if (nameFromList.toLowerCase().contains(name.toLowerCase())) {
+                    System.out.println(contact);
                     newList.remove(contact);
                     System.out.println("Contact deleted");
                     break;
@@ -326,7 +329,5 @@ public class ContactActions {
                 contactNavigator();
                 }
             }
-
-
 
     }

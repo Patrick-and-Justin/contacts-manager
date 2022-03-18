@@ -32,11 +32,7 @@ public class ContactsApp {
                 }
             } else if (answer == 3) {
                 searchContacts();
-                if (input.yesNo("\nWould you like to do anything else? Y/N\n> ")) {
-                    answer = contactMenu();
-                } else {
-                    answer = 8;
-                }
+                answer = contactMenu();
             } else if (answer == 4) {
                 deleteContact();
                 if (input.yesNo("\nWould you like to do anything else? Y/N\n> ")) {
