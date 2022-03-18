@@ -133,6 +133,8 @@ public class ContactActions {
             boolean finishedForLoop = false;
             for (String contact : contactsList) {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
+                    System.out.println("| Name                   | Phone number         | Email                         |\n" +
+                            "---------------------------------------------------------------------------------");
                     System.out.println(contact);
                     finishedForLoop = true;
                     String[] splitStr = contact.split("\\|+");
