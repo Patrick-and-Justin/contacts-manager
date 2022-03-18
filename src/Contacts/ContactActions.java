@@ -1,6 +1,8 @@
 package Contacts;
 
 
+import Contacts.documents.Ascii;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -133,6 +135,67 @@ public class ContactActions {
             boolean finishedForLoop = false;
             for (String contact : contactsList) {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
+                    if (name.equalsIgnoreCase("doc rob")) {
+                        Ascii.docRob();
+                    }
+                    else if (name.equalsIgnoreCase("patrick quilty")) {
+                        Ascii.patrickQuilty();
+                    }
+                    else if (name.equalsIgnoreCase("collin jones")) {
+                        Ascii.collinJones();
+                    }
+                    else if (name.equalsIgnoreCase("daniel ficci")) {
+                        Ascii.danielFicci();
+                    }
+                    else if (name.equalsIgnoreCase("david collins")) {
+                        Ascii.davidCollins();
+                    }
+                    else if (name.equalsIgnoreCase("emilio benavides")) {
+                        Ascii.emilioBenavides();
+                    }
+                    else if (name.equalsIgnoreCase("jennifer deleon")) {
+                        Ascii.jenniferDeleon();
+                    }
+                    else if (name.equalsIgnoreCase("raymond dugan")) {
+                        Ascii.raymondDugan();
+                    }
+                    else if (name.equalsIgnoreCase("brice ernst")) {
+                        Ascii.briceErnst();
+                    }
+                    else if (name.equalsIgnoreCase("hector mejia")) {
+                        Ascii.hectorMejia();
+                    }
+                    else if (name.equalsIgnoreCase("irvin ruiz")) {
+                        Ascii.irvinRuiz();
+                    }
+                    else if (name.equalsIgnoreCase("justin sixsmith")) {
+                        Ascii.justinSixsmith();
+                    }
+                    else if (name.equalsIgnoreCase("lola castillo")) {
+                        Ascii.lolaCastillo();
+                    }
+                    else if (name.equalsIgnoreCase("micah wood")) {
+                        Ascii.lolaCastillo();
+                    }
+                    else if (name.equalsIgnoreCase("rachel verastique")) {
+                        Ascii.rachelVerastique();
+                    }
+                    else if (name.equalsIgnoreCase("ry sutton")) {
+                        Ascii.rySutton();
+                    }
+                    else if (name.equalsIgnoreCase("scott carpenter")) {
+                        Ascii.scottCarpenter();
+                    }
+                    else if (name.equalsIgnoreCase("trevor esparza")) {
+                        Ascii.trevorEsparza();
+                    }
+                    else if (name.equalsIgnoreCase("wesley bernard")) {
+                        Ascii.wesleyBernard();
+                    }
+                    else if (name.equalsIgnoreCase("william withers")) {
+                        Ascii.williamWithers();
+                    }
+
                     System.out.println(contact);
                     finishedForLoop = true;
                     String[] splitStr = contact.split("\\|+");
