@@ -127,10 +127,13 @@ public class ContactActions {
                 if (contact.toLowerCase().contains(name.toLowerCase())) {
                     finishedForLoop = false;
                     System.out.println(contact);
+                    String[] splitStr = contact.split("\\|+");
+                    String phoneNumber = splitStr[2].trim();
                     if(input.yesNo("\nWould you like to call this contact?\n> ")){
-                        String[] splitStr = contact.split("\\|+");
-                        String phoneNumber = splitStr[2].trim();
                         callContact(phoneNumber);
+                    }
+                    if(input.yesNo("\nWould you text message to call this contact?\n> ")){
+                        messageContact(phoneNumber);
                     }
                 }
             }
@@ -201,9 +204,10 @@ public class ContactActions {
                 "4. Delete an existing contact.\n" +
                 "5. Edit an existing contact.\n" +
                 "6. Make a call.\n" +
-                "7. Exit.\n" +
+                "7. Send a text message.\n" +
+                "8. Exit.\n" +
                 "Enter an option number (ex: 1, 2...):\n> ");
-        return input.getInt(1, 7);
+        return input.getInt(1, 8);
     }
 
     public static boolean checkIfContactExists(String name) {
@@ -269,6 +273,14 @@ public class ContactActions {
 
     public static void callContact(String phoneNumber) throws IOException, InterruptedException {
         String cmd = "open facetime://" + phoneNumber;
+        macInterface(cmd);
+    }
+    public static void messageContact(String phoneNumber) throws IOException, InterruptedException {
+        String cmd = "open imessage://" + phoneNumber;
+        macInterface(cmd);
+        }
+
+    public static void macInterface(String cmd) throws InterruptedException, IOException {
         Runtime run = Runtime.getRuntime();
         Process pr = run.exec(cmd);
         pr.waitFor();
@@ -277,6 +289,6 @@ public class ContactActions {
         while ((line = buf.readLine()) != null) {
             System.out.println(line);
         }
-
     }
+
 }

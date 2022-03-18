@@ -7,6 +7,15 @@ import java.io.InputStreamReader;
 
 public class Test {
     public static void main(String[] args) throws InterruptedException, IOException {
+        String cmd = "open imessage://19089066710";
+        Runtime run = Runtime.getRuntime();
+        Process pr = run.exec(cmd);
+        pr.waitFor();
+        BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+        String line = "";
+        while ((line = buf.readLine()) != null) {
+            System.out.println(line);
+        }
 
     }
     public static void callContact(String phoneNumber) throws IOException, InterruptedException {
