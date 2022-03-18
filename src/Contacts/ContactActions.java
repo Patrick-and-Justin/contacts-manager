@@ -294,6 +294,7 @@ public class ContactActions {
             Desktop desktop;
             if (Desktop.isDesktopSupported()
                     && (desktop = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
+//                URI mailto = new URI("mailto:" + email + "?subject=Look%20What%20This%20App%20Can%20Do&body=hi");
                 URI mailto = new URI("mailto:" + email + "?subject=Look%20What%20This%20App%20Can%20Do");
                 desktop.mail(mailto);
             } else {
